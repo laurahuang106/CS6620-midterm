@@ -7,7 +7,6 @@ from boto3.dynamodb.conditions import Key
 
 s3 = boto3.client('s3')
 dynamodb = boto3.resource('dynamodb')
-lambda_client = boto3.client('lambda')
 table = dynamodb.Table(os.getenv('TABLE_NAME'))
 dst_bucket_name = os.getenv('DST_BUCKET_NAME')
 DISOWNED_THRESHOLD = 10  # seconds

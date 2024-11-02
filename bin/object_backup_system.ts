@@ -1,19 +1,17 @@
 import * as cdk from 'aws-cdk-lib';
-import { StorageStack } from '../lib/storage-stack';
-import { ReplicatorLambdaStack } from '../lib/replicator-lambda-stack';
+import { DynamoDBStack } from '../lib/dynamodb-stack';
+import { S3ReplicatorStack } from '../lib/s3-replicator-stack';
 import { CleanerLambdaStack } from '../lib/cleaner-lambda-stack';
 
 const app = new cdk.App();
 
-const storageStack = new StorageStack(app, 'StorageStack');
+const dynamoDBStack = new DynamoDBStack(app, 'DynamoDBStack');
 
-new ReplicatorLambdaStack(app, 'ReplicatorLambdaStack', {
-  srcBucket: storageStack.srcBucket,
-  dstBucket: storageStack.dstBucket,
-  table: storageStack.table
+const s3ReplicatorStack = new S3ReplicatorStack(app, 'S3ReplicatorStack', {
+  table: dynamoDBStack.table, 
 });
 
 new CleanerLambdaStack(app, 'CleanerLambdaStack', {
-  dstBucket: storageStack.dstBucket,
-  table: storageStack.table
+  dstBucket: s3ReplicatorStack.dstBucket,  
+  table: dynamoDBStack.table,              
 });
