@@ -32,7 +32,7 @@ export class CleanerLambdaStack extends Stack {
     props.dstBucket.grantDelete(cleanerFunction);
     props.table.grantReadWriteData(cleanerFunction);
 
-    // Set up a CloudWatch Event to trigger every 5 seconds
+    // Set up a CloudWatch Event to trigger every 1 minute
     const rule = new events.Rule(this, 'CleanerSchedule', {
       schedule: events.Schedule.rate(cdk.Duration.minutes(1))
     });

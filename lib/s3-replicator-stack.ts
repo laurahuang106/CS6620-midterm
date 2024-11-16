@@ -21,14 +21,14 @@ export class S3ReplicatorStack extends cdk.Stack {
 
     // Define Source Bucket
     this.srcBucket = new s3.Bucket(this, 'SourceBucket', {
-      bucketName: 'laura-assignment4-cdk-source-bucket',
+      bucketName: 'laura-midterm-cdk-source-bucket',
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       autoDeleteObjects: true, // Automatically delete all objects before the bucket itself is deleted
     });
 
     // Define Destination Bucket
     this.dstBucket = new s3.Bucket(this, 'DestinationBucket', {
-      bucketName: 'laura-assignment4-cdk-destination-bucket',
+      bucketName: 'laura-midterm-cdk-destination-bucket',
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
     });

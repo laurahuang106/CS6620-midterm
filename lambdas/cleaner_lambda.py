@@ -19,10 +19,9 @@ def handler(event, context):
         # Query the DynamoDB table using GSI to find disowned objects
         response = table.query(
             IndexName='DisownIndex',
-            KeyConditionExpression=Key('DisownStatus').eq(1) &
-                                    Key('DisownTimestamp').lt(current_time - DISOWNED_THRESHOLD)
+            KeyConditionExpression=Key('DisownStatus').eq(b'\x01') & Key('DisownTimestamp').lt(current_time - DISOWNED_THRESHOLD)
         )
-
+        
         disowned_items = response.get('Items', [])
         for item in disowned_items:
             # Delete the object from Destination Bucket
